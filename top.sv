@@ -14,7 +14,8 @@
 
 module top;
   import uvm_pkg::*;
-
+  import my_pkg::*;
+  
   logic clk;
   logic reset;
 
@@ -55,6 +56,6 @@ module top;
 
     uvm_config_db#(virtual mem_if)::set(uvm_root::get(), "*.env_h.ag.*", "mem_vif", intif);
 
-    run_test("random_test");
+    run_test("simple_test");
   end
 endmodule

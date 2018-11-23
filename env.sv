@@ -30,7 +30,7 @@ class env extends uvm_env;
 
     virtual function void connect_phase(uvm_phase phase);
         super.connect_phase(phase);
-        ag.item_comp_port.conect(sb.ap_comp);
+        ag.item_comp_port.connect(sb.ap_comp);
         ag.item_ref_port.connect(sb.ap_rfm);
     endfunction
 

@@ -17,6 +17,9 @@
 class driver extends uvm_driver #(packet);
 
     `uvm_component_utils(driver)
+
+    packet req;
+
     virtual mem_if mem_vif;
     event begin_record, end_record;
 
@@ -54,12 +57,12 @@ class driver extends uvm_driver #(packet);
 	  while (1) begin
 	    reset_signals();
 	    fork
-	      @(negedge `DRIV_IF.reset)
+	      @(negedge mem_vif.reset)
 	        `uvm_info(get_type_name(), "Reset asserted", UVM_LOW)
 	    begin
 	      forever begin
-	        @(posedge mem_vif.clock iff (mem_vif.reset))
-	        seq_item_port.get_next_item(req);
+	        @(posedge mem_vif.clk iff (mem_vif.reset));
+          seq_item_port.try_next_item(req);
 	        -> begin_record;
 	        drive_transfer(req);
 	        seq_item_port.item_done();
@@ -91,6 +94,7 @@ class driver extends uvm_driver #(packet);
 			tr.rdata = `DRIV_IF.rdata;
 			$display("\tADDR = %0h \tRDATA = %0h",tr.addr,`DRIV_IF.rdata);
 		end
+
 		$display("-----------------------------------------");
     endtask
 

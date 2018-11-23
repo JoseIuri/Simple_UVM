@@ -15,17 +15,17 @@
 package my_pkg;
 
 // Import the UVM library and include the UVM macros
-import uvm_pkg::*;
 `include "uvm_macros.svh"
+import uvm_pkg::*;
 
 `include "packet.sv"
+`include "sequence_in.sv"
 `include "monitor.sv"
 `include "driver.sv"
 `include "agent.sv"
 `include "refmod.sv"
 `include "scoreboard.sv"
 `include "env.sv"
-`include "sequence_in.sv"
-`include "random_test.sv"
+`include "simple_test.sv"
 
 endpackage
