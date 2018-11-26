@@ -23,8 +23,7 @@ compile:
 	# irun -uvm -access +r -input shm.tcl $(INTERFACE) $(PACKAGES) $(DUT) $(TOP) $(UVM) -nowarn "NONPRT" -timescale 1ns/1ps
 	irun -64bit -uvm $(PACKAGES) $(INTERFACE) $(DUT) top.sv \
 	  +UVM_TESTNAME=simple_test -covtest simple_test-$(SEED) -svseed $(SEED)  \
-	  $(RUN_ARGS_COMMON)
-
+		-defparam top.min_cover=$(COVER) -defparam top.min_transa=$(TRANSA) $(RUN_ARGS_COMMON) \
 
 waves:
 	simvision waves.shm &

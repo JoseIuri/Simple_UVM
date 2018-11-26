@@ -19,7 +19,7 @@ class refmod extends uvm_component;
     packet tr_out;
     bit [7:0] mem[4];
     uvm_get_port #(packet) in;
-    uvm_put_port #(packet) out;
+    uvm_analysis_export #(packet) out;
     event begin_refmodtask;
 
     function new(string name = "refmod", uvm_component parent);

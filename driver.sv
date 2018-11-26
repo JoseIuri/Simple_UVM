@@ -44,6 +44,7 @@ class driver extends uvm_driver#(packet);
 		      `DRIV_IF.wr_en <= 0;
 		      `DRIV_IF.rd_en <= 0;
 		      seq_item_port.try_next_item(trans);
+					item_done = 1'b0;
 		      $display("--------- [DRIVER-TRANSFER] ---------");
 		      @(posedge mem_vif.DRIVER.clk);
 		        `DRIV_IF.addr <= trans.addr;
@@ -62,15 +63,16 @@ class driver extends uvm_driver#(packet);
 		        $display("\tADDR = %0h \tRDATA = %0h",trans.addr,`DRIV_IF.rdata);
 		      end
 		      $display("-----------------------------------------");
+					item_done = 1'b1;
 				end
 
-				// if (item_done) begin
-				// 	`uvm_info("ITEM_DONE", $sformatf("Item done."), UVM_HIGH);
-				// 	seq_item_port.item_done();
-				// end
-				// if ((item_done || !trans) && men_vif.reset) begin
-				// 	seq_item_port.try_next_item(trans);
-				// end
+				if (item_done) begin
+					`uvm_info("ITEM_DONE", $sformatf("Item done."), UVM_HIGH);
+					seq_item_port.item_done();
+				end
+				if ((item_done || !trans) && mem_vif.reset) begin
+					seq_item_port.try_next_item(trans);
+				end
 			end
 		end
 	endtask

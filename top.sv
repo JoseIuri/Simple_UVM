@@ -15,9 +15,10 @@
 module top;
   import uvm_pkg::*;
   import my_pkg::*;
-  
   logic clk;
   logic reset;
+  parameter min_cover = 70;
+  parameter min_transa = 2000;
 
   initial begin
     clk = 0;
@@ -30,16 +31,16 @@ module top;
 
   logic [1:0] state;
 
-  mem_if intif (.clk(clk), .reset(reset));
+  mem_if mem_vif (.clk(clk), .reset(reset));
 
   memory DUT (
-    .clk(intif.clk),
-    .reset(intif.reset),
-    .addr(intif.addr),
-    .wr_en(intif.wr_en),
-    .rd_en(intif.rd_en),
-    .wdata(intif.wdata),
-    .rdata(intif.rdata)
+    .clk(mem_vif.clk),
+    .reset(mem_vif.reset),
+    .addr(mem_vif.addr),
+    .wr_en(mem_vif.wr_en),
+    .rd_en(mem_vif.rd_en),
+    .wdata(mem_vif.wdata),
+    .rdata(mem_vif.rdata)
    );
 
   initial begin
@@ -54,8 +55,9 @@ module top;
        set_config_int("*", "recording_detail", 1);
     `endif
 
-    uvm_config_db#(virtual mem_if)::set(uvm_root::get(), "*.env_h.ag.*", "mem_vif", intif);
-
+    uvm_config_db#(virtual mem_if)::set(uvm_root::get(), "*", "mem_vif", mem_vif);
+    uvm_config_db#(int)::set(uvm_root::get(),"*", "min_cover", min_cover);
+    uvm_config_db#(int)::set(uvm_root::get(),"*", "min_transa", min_transa);
     run_test("simple_test");
   end
 endmodule

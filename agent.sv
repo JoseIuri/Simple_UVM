@@ -1,5 +1,5 @@
 class agent extends uvm_agent;
-    uvm_sequencer sqr;
+    uvm_sequencer#(packet) sqr;
     driver    drv;
     monitor   mon;
 
@@ -17,7 +17,7 @@ class agent extends uvm_agent;
     virtual function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         mon = monitor::type_id::create("mon", this);
-        sqr = uvm_sequencer::type_id::create("sqr", this);
+        sqr = uvm_sequencer#(packet)::type_id::create("sqr", this);
         drv = driver::type_id::create("drv", this);
     endfunction
 

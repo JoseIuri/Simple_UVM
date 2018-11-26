@@ -24,6 +24,7 @@ import uvm_pkg::*;
 `include "driver.sv"
 `include "agent.sv"
 `include "refmod.sv"
+`include "cover_mem.sv"
 `include "scoreboard.sv"
 `include "env.sv"
 `include "simple_test.sv"
