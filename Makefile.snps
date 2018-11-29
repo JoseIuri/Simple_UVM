@@ -1,0 +1,69 @@
+
+#UVM Configure
+#TEST_NAME = basic_test
+UVM = +UVM_TR_RECORD +UVM_VERBOSITY=HIGH +UVM_TESTNAME=simple_test
+SEED = 100
+COVER = 100
+MODE = ALL
+TRANSA = 2500
+
+PACKAGES = my_pkg.sv
+INTERFACE = mem_if.sv
+
+TOP = top.sv
+
+DUT = memory.sv
+#UVM Configure
+#TEST_NAME = basic_test
+UVM = +UVM_TR_RECORD +UVM_VERBOSITY=HIGH +UVM_TESTNAME=simple_test
+SEED = 100
+COVER = 100
+MODE = ALL
+TRANSA = 2500
+
+PACKAGES = my_pkg.sv
+INTERFACE = mem_if.sv
+
+TOP = top.sv
+
+DUT = memory.sv
+
+RUN_ARGS_COMMON = -access +r -input shm.tcl \
+		  +uvm_set_config_int=*,recording_detail,1 -coverage all -covoverwrite
+
+
+run: compile
+
+compile:
+	# irun -uvm -access +r -input shm.tcl $(INTERFACE) $(PACKAGES) $(DUT) $(TOP) $(UVM) -nowarn "NONPRT" -timescale 1ns/1ps
+	vcs -full64 -sverilog $(PACKAGES) $(INTERFACE) $(DUT) top.sv -ntb_opts uvm -debug_pp -timescale=1ns/10ps -debug_pp +vcs+vcdpluson -pvalue+top.min_cover=$(COVER) -pvalue+top.min_transa=$(TRANSA) -q
+	./simv +UVM_TR_RECORD +UVM_VERBOSITY=HIGH +UVM_TESTNAME=simple_test +ntb_random_seed=$(SEED)
+
+view_waves:
+	dve -vpd vcdplus.vpd &
+
+view_cover:
+	dve -covdir simv.vdb &
+
+clean:
+	rm -rf DVEfiles csrc simv simv.daidir ucli.key .vlogansetup.args .vlogansetup.env .vcs_lib_lock simv.vdb AN.DB vc_hdrs.h *.diag *.vpd *tar.gz *.o *.so INCA_libs *trn *dsn
+
+RUN_ARGS_COMMON = -access +r -input shm.tcl \
+		  +uvm_set_config_int=*,recording_detail,1 -coverage all -covoverwrite
+
+
+run: compile
+
+compile:
+	# irun -uvm -access +r -input shm.tcl $(INTERFACE) $(PACKAGES) $(DUT) $(TOP) $(UVM) -nowarn "NONPRT" -timescale 1ns/1ps
+	vcs -full64 -sverilog $(PACKAGES) $(INTERFACE) $(DUT) top.sv -ntb_opts uvm -debug_pp -timescale=1ns/10ps -debug_pp +vcs+vcdpluson -pvalue+top.min_cover=$(COVER) -pvalue+top.min_transa=$(TRANSA) -q
+	./simv +UVM_TR_RECORD +UVM_VERBOSITY=HIGH +UVM_TESTNAME=simple_test +ntb_random_seed=$(SEED)
+
+view_waves:
+	dve -vpd vcdplus.vpd &
+
+view_cover:
+	dve -covdir simv.vdb &
+
+clean:
+	rm -rf DVEfiles csrc simv simv.daidir ucli.key .vlogansetup.args .vlogansetup.env .vcs_lib_lock simv.vdb AN.DB vc_hdrs.h *.diag *.vpd *tar.gz *.o *.so INCA_libs *trn *dsn

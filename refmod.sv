@@ -18,7 +18,7 @@ class refmod extends uvm_component;
     packet tr_in;
     packet tr_out;
     bit [7:0] mem[4];
-    uvm_get_port #(packet) in;
+    uvm_analysis_imp #(packet, refmod) in;
     uvm_analysis_export #(packet) out;
     event begin_refmodtask;
 
@@ -26,6 +26,8 @@ class refmod extends uvm_component;
         super.new(name, parent);
         in = new("in", this);
         out = new("out", this);
+        for (int i = 0; i<4; i++)
+          mem[i] = 8'hFF;
     endfunction
 
     virtual function void build_phase(uvm_phase phase);
