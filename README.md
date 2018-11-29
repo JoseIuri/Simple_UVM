@@ -6,6 +6,6 @@ To run please remove the symbolic link to one of avaible Makefiles and create an
 
 Example: (Synopsys)
 
-$ln -s Makefile.spns Makefile
+$ ln -s Makefile.spns Makefile
 
 The default is Cadence.
