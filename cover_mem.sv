@@ -2,14 +2,12 @@
   ******************************************************************************
   *
   * @university UFCG (Universidade Federal de Campina Grande)
-  * @lab        embedded
-  * @project    RISC-V.br
-  * @ip         AES (Advanced Encryption Standard)
+  * @lab        embedded - X-MEN
   *
   * @file       cover_mem.sv
   *
   * @authors    Pedro Cavalcante
-  *             Samuel Mendes
+  *             José Iuri
   *
   ******************************************************************************
 **/
