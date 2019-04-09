@@ -21,13 +21,9 @@ class sequence_in extends uvm_sequence #(packet);
     endfunction: new
 
     task body;
-        packet tx;
-
-        forever begin
-            tx = packet::type_id::create("tx");
-            start_item(tx);
-            assert(tx.randomize());
-            finish_item(tx);
-        end
+      packet req;
+      forever begin
+        `uvm_do(req)
+      end
     endtask: body
 endclass

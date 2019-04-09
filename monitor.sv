@@ -19,6 +19,7 @@ class monitor extends uvm_monitor;
     virtual mem_if  mem_vif;
     event begin_record, end_record;
     packet tr;
+
     uvm_analysis_port #(packet) item_comp_port;
     uvm_analysis_port #(packet) item_ref_port;
     `uvm_component_utils(monitor)
@@ -35,33 +36,56 @@ class monitor extends uvm_monitor;
         tr = packet::type_id::create("tr", this);
     endfunction
 
-    virtual task run_phase(uvm_phase phase);
-        super.run_phase(phase);
-        fork
-            collect_transactions();
-            record_tr();
-        join
+    task pre_reset_phase(uvm_phase phase);
+    endtask : pre_reset_phase
+
+    // Wait for reset to de-assert
+    task reset_phase(uvm_phase phase);
+        @(negedge mem_vif.reset);
+        `uvm_info(get_name(), $sformatf("rstn deassertion detected"), UVM_LOW);
+    endtask : reset_phase
+
+    virtual task main_phase(uvm_phase phase);
+        super.main_phase(phase);
+        forever begin
+            fork
+                begin
+                    collect_transactions();
+                end
+                begin
+                    record_tr();
+                end
+                begin
+                    @(posedge mem_vif.reset);
+                    `uvm_info(get_name(), $sformatf("rstn is asserted during reception of data"), UVM_LOW);
+                    `uvm_info(get_name(), $sformatf(" tr:\n%s", tr.convert2string()), UVM_LOW);
+                end
+            join_any
+            disable fork;
+            item_ref_port.write(tr);
+        end
     endtask
 
     virtual task collect_transactions();
-        forever begin
         @(posedge mem_vif.MONITOR.clk);
-        wait(`MON_IF.rd_en || `MON_IF.wr_en);
-            -> begin_record;
-            tr.addr  = `MON_IF.addr;
+        -> begin_record;
+        tr.wr_en = 0;
+        tr.rd_en = 0;
+        tr.addr  = `MON_IF.addr;
+        if(`MON_IF.wr_en) begin
             tr.wr_en = `MON_IF.wr_en;
             tr.wdata = `MON_IF.wdata;
-            tr.rd_en = `MON_IF.rd_en;
-            if(`MON_IF.rd_en) begin
-                @(posedge mem_vif.MONITOR.clk);
-                @(posedge mem_vif.MONITOR.clk);
-                tr.rdata = `MON_IF.rdata;
-                item_comp_port.write(tr);
-            end
-            item_ref_port.write(tr);
-            @(posedge mem_vif.clk);
-            -> end_record;
+            @(posedge mem_vif.MONITOR.clk);
         end
+        if(`MON_IF.rd_en) begin
+            tr.rd_en = `MON_IF.rd_en;
+            @(posedge mem_vif.MONITOR.clk);
+            @(posedge mem_vif.MONITOR.clk);
+            tr.rdata = `MON_IF.rdata;
+            $display("\tADDR = %0h \tRDATA = %0h",tr.addr,`MON_IF.rdata);
+        end
+        item_comp_port.write(tr);
+        -> end_record;
     endtask
 
     virtual task record_tr();

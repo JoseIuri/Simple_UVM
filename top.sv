@@ -24,7 +24,8 @@ module top;
     clk = 0;
     reset = 1;
     #22 reset = 0;
-
+    #40000 reset = 1;
+    #22 reset = 0;
   end
 
   always #5 clk = !clk;

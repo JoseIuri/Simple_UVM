@@ -27,4 +27,14 @@ class agent extends uvm_agent;
         mon.item_ref_port.connect(item_ref_port);
         drv.seq_item_port.connect(sqr.seq_item_export);
     endfunction
+    task pre_reset_phase(uvm_phase phase);
+      // Tells the sequencer to kill all sequences and child sequences currently
+      // operating on the sequencer, and remove all requests, locks and responses
+      // that are currently queued.
+      // This essentially resets the sequencer to an idle state.
+      sqr.stop_sequences();
+      // Indicates Driver that reset is asserted
+      ->drv.reset_driver;
+      `uvm_info(get_name(), $sformatf("reset_driver event is triggered"), UVM_LOW)
+    endtask : pre_reset_phase
 endclass: agent
