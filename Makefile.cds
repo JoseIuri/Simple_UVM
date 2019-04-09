@@ -21,11 +21,11 @@ run: compile
 
 compile:
 	# irun -uvm -access +r -input shm.tcl $(INTERFACE) $(PACKAGES) $(DUT) $(TOP) $(UVM) -nowarn "NONPRT" -timescale 1ns/1ps
-	irun -64bit -uvm $(PACKAGES) $(INTERFACE) $(DUT) top.sv \
+	xrun -64bit -uvm $(PACKAGES) $(INTERFACE) $(DUT) top.sv \
 	  +UVM_TESTNAME=simple_test -covtest simple_test-$(SEED) -svseed $(SEED)  \
 		-defparam top.min_cover=$(COVER) -defparam top.min_transa=$(TRANSA) $(RUN_ARGS_COMMON) \
 
 waves:
 	simvision waves.shm &
 clean:
-	rm -rf xcelium.d/ waves.shm/ irun* top-* cov_work INCA_libs
+	rm -rf xcelium.d/ waves.shm/ irun* xrun* top-* cov_work INCA_libs
