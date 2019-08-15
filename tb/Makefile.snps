@@ -12,7 +12,7 @@ INTERFACE = mem_if.sv
 
 TOP = top.sv
 
-DUT = memory.sv
+DUT = ../rtl/memory.sv
 #UVM Configure
 #TEST_NAME = basic_test
 UVM = +UVM_TR_RECORD +UVM_VERBOSITY=HIGH +UVM_TESTNAME=simple_test

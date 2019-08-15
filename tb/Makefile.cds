@@ -11,7 +11,7 @@ INTERFACE = mem_if.sv
 
 TOP = top.sv
 
-DUT = memory.sv
+DUT = ../rtl/memory.sv
 
 RUN_ARGS_COMMON = -access +r -input shm.tcl \
 		  +uvm_set_config_int=*,recording_detail,1 -coverage all -covoverwrite

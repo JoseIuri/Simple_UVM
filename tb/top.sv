@@ -36,7 +36,7 @@ module top;
 
   memory DUT (
     .clk(mem_vif.clk),
-    .reset(mem_vif.reset),
+    .reset(mem_vif.reset), 
     .addr(mem_vif.addr),
     .wr_en(mem_vif.wr_en),
     .rd_en(mem_vif.rd_en),

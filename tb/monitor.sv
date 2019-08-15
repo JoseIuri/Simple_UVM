@@ -41,7 +41,7 @@ class monitor extends uvm_monitor;
 
     // Wait for reset to de-assert
     task reset_phase(uvm_phase phase);
-        @(negedge mem_vif.reset);
+        @(posedge mem_vif.reset);
         `uvm_info(get_name(), $sformatf("rstn deassertion detected"), UVM_LOW);
     endtask : reset_phase
 

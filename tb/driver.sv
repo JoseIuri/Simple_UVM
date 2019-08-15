@@ -93,7 +93,5 @@ class driver extends uvm_driver#(packet);
 		end
 		$display("-----------------------------------------");
 		seq_item_port.item_done();
-		$display("AQUI KCT");
-		`uvm_info("ITEM_DONE", $sformatf("Item done."), UVM_HIGH);
 	endtask : get_and_drive
 endclass
