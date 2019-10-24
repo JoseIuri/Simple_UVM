@@ -66,7 +66,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 <p align="center">
   <a href="https://www.embedded.ufcg.edu.br/">
-    <img alt="XMEN Lab" title="XMEN Lab" src="https://lh3.googleusercontent.com/J5jI2Iv0sPdqse5RnFxS5Zb7HUH80TnqWxC7-XO9fC8Gq82OzB4ovS0Th6hd7jrC5ylCZXCzEPlENsFFmGNdqcgUKy0CkcslctRR4jMjAm3k7DCmVg=w371" width="450">
+    <img alt="XMEN Lab" title="XMEN Lab" src="https://i.imgur.com/IzbZM0E.png" width="200">
   </a>
 </p>
 
