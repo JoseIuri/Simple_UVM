@@ -1,9 +1,5 @@
 # Simple UVM
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
-
 Implements a simple UVM based testbench for a memory DUT.
 
 ## Getting Started
@@ -40,7 +36,7 @@ ln -s Makefile.spns Makefile
 
 ## Authors
 
-* **José Iuri Barbosa de Brito** - *Initial work* - [JoseIuri](https://github.com/JoseIuri)
+* **José Iuri Barbosa de Brito** - [JoseIuri](https://github.com/JoseIuri)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
