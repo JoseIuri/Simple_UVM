@@ -1,10 +1,18 @@
 # Simple UVM
 
-Implements a simple UVM based testbench for a memory DUT.
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Prerequisites](#prerequisites)
+- [Running the tests](#running-the-tests)
+- [Authors](#authors)
+- [License](#license)
+- [Contributing](#contributing)
+- [Acknowledgments](#acknowledgments)
 
 ## Getting Started
 
-This repository is a basic UVM testbench with some features including reset on the fly using Phase Jumping.
+Implements a simple UVM based testbench for a memory DUT. This repository is a basic UVM testbench with some features including reset on the fly using Phase Jumping.
 
 ![](tb.png)
 
@@ -55,3 +63,11 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 * XMEN Lab - Federal University of Campina Grande - Brazil
+
+<p align="center">
+  <a href="https://www.embedded.ufcg.edu.br/">
+    <img alt="XMEN Lab" title="XMEN Lab" src="https://lh3.googleusercontent.com/J5jI2Iv0sPdqse5RnFxS5Zb7HUH80TnqWxC7-XO9fC8Gq82OzB4ovS0Th6hd7jrC5ylCZXCzEPlENsFFmGNdqcgUKy0CkcslctRR4jMjAm3k7DCmVg=w371" width="450">
+  </a>
+</p>
+
+
