@@ -46,7 +46,7 @@ ln -s Makefile.spns Makefile
 
 * **José Iuri Barbosa de Brito** - [JoseIuri](https://github.com/JoseIuri)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/JoseIuri/Simple_UVM/contributors) who participated in this project.
 
 ## License
 
